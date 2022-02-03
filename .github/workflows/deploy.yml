@@ -4,12 +4,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+    - name: Check out repository code
+      uses: actions/checkout@v2
     - id: 'auth'
       uses: 'google-github-actions/auth@v0'
       with:
         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v0'
+      with:
+        install_components: 'beta,alpha'
 
-    - name: 'Use gcloud CLI'
-      run: 'gcloud info'
+    - name: 'Deploy the app'
+      run: './deploy.sh'
