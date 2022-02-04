@@ -19,9 +19,16 @@ func getWebServerPort() string {
 func main() {
 	PORT := getWebServerPort()
 	r := gin.Default()
+
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"name": "foo-service",
+		})
+	})
+
+	r.GET("/version", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"version": 1.0,
 		})
 	})
 	r.Run(PORT) // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
